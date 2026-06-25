@@ -58,7 +58,7 @@
             position: fixed;
             top: 0; 
             left: 0; 
-            right: 0; /* Anchors explicitly to the edges, replacing width: 100% */
+            right: 0; 
             z-index: 100;
             display: flex;
             align-items: center;
@@ -100,7 +100,7 @@
             display: flex; 
             align-items: center; 
             gap: 20px; 
-            flex-shrink: 0; /* Prevents container from collapsing */
+            flex-shrink: 0; 
         }
         
         .nav-cta {
@@ -545,13 +545,14 @@
     <canvas id="hero-canvas"></canvas>
     
     <nav id="navbar">
-        <div class="nav-logo">SP<span>.</span></div>
+        <a href="#" class="nav-logo" style="text-decoration: none;">SP<span>.</span></a>
         
         <ul class="nav-links" id="nav-links">
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#education">Education</a></li>
+            <li><a href="https://drive.google.com/file/d/1HT6jv29Eni60AEm0f36UWqpaEwKG8klp/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" style="color: var(--accent);">Resume 📄</a></li>
         </ul>
         
         <div class="nav-right">
@@ -580,7 +581,7 @@
         </p>
         <div class="hero-actions">
             <a href="#projects" class="btn-primary">View My Work ↓</a>
-            <a href="mailto:suryakant.panda10@gmail.com" class="btn-secondary">Get In Touch →</a>
+            <a href="https://drive.google.com/file/d/1HT6jv29Eni60AEm0f36UWqpaEwKG8klp/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="btn-secondary">📄 Download Resume</a>
         </div>
         <div class="hero-socials">
             <a href="mailto:suryakant.panda10@gmail.com" class="social-link">Email</a>
