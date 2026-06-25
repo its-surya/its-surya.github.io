@@ -78,6 +78,7 @@
         }
         .nav-links a:hover { color: var(--accent); }
         .nav-links a:hover::after { width: 100%; }
+        .nav-right { display: flex; align-items: center; gap: 20px; }
         .nav-cta {
             padding: 8px 20px;
             background: linear-gradient(135deg, var(--accent), #0284c7);
@@ -91,6 +92,26 @@
             transition: opacity 0.2s, transform 0.2s;
         }
         .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+        
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            cursor: pointer;
+            z-index: 101;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
         #hero {
             position: relative;
             z-index: 1;
@@ -410,7 +431,39 @@
         .reveal.visible { opacity: 1; transform: translateY(0); }
         .section-divider { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         .section-divider hr { border: none; border-top: 1px solid var(--border); }
+        
+        /* Mobile Breakpoint Modifications */
         @media (max-width: 900px) {
+            nav { padding: 14px 20px; }
+            .mobile-menu-btn { display: flex; }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(6, 11, 24, 0.98);
+                flex-direction: column;
+                align-items: center;
+                padding: 30px 0;
+                gap: 25px;
+                transform: translateY(-150%);
+                opacity: 0;
+                pointer-events: none;
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .nav-links a { font-size: 18px; }
+            /* Hamburger animation classes */
+            .mobile-menu-btn.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+            .mobile-menu-btn.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+            
             .projects-grid { grid-template-columns: 1fr; }
             .project-card.featured { grid-column: 1; }
             .featured-inner { grid-template-columns: 1fr; gap: 24px; }
@@ -421,8 +474,6 @@
             .timeline-date { text-align: left; }
             .timeline-dot { display: none; }
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            nav { padding: 14px 20px; }
-            .nav-links { display: none; }
         }
         @media (max-width: 580px) {
             .skills-grid { grid-template-columns: 1fr; }
@@ -432,16 +483,27 @@
 </head>
 <body>
     <canvas id="hero-canvas"></canvas>
+    
     <nav id="navbar">
         <div class="nav-logo">SP<span>.</span></div>
-        <ul class="nav-links">
+        
+        <ul class="nav-links" id="nav-links">
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#education">Education</a></li>
         </ul>
-        <a href="mailto:suryakant.panda10@gmail.com" class="nav-cta">Hire Me →</a>
+        
+        <div class="nav-right">
+            <a href="mailto:suryakant.panda10@gmail.com" class="nav-cta desktop-cta">Hire Me →</a>
+            <div class="mobile-menu-btn" id="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </nav>
+
     <section id="hero">
         <div class="hero-badge">
             <span class="badge-dot"></span>
@@ -472,6 +534,7 @@
             <a href="https://leetcode.com/u/heathledger2501" target="_blank" class="social-link">LeetCode</a>
         </div>
     </section>
+
     <section id="stats">
         <div class="stats-grid">
             <div class="stat-item">
@@ -492,7 +555,9 @@
             </div>
         </div>
     </section>
+
     <div class="section-divider"><hr></div>
+
     <section id="experience" class="section">
         <p class="section-label">Career</p>
         <h2 class="section-title">Work Experience</h2>
@@ -547,7 +612,9 @@
             </div>
         </div>
     </section>
+
     <div class="section-divider"><hr></div>
+
     <section id="projects" class="section">
         <p class="section-label">Portfolio</p>
         <h2 class="section-title">Featured Projects</h2>
@@ -562,7 +629,7 @@
                             A cross-platform <strong style="color: var(--text-primary);">price comparison super-app</strong> spanning 3 verticals — ride-hailing, parcel delivery &amp; quick commerce — integrating 10+ providers including Ola, Uber, Rapido, Borzo, Blinkit, Zepto, and JioMart. Built entirely solo from architecture to App Store submission.
                         </p>
                         <div class="project-links">
-                            <a href="https://play.google.com/store" target="_blank" class="store-link">▶ Play Store</a>
+                            <a href="https://play.google.com/store/apps/details?id=com.catchaprice" target="_blank" class="store-link">▶ Play Store</a>
                             <a href="https://apps.apple.com/in/app/catch-a-price/id6759338038" target="_blank" class="store-link">⬛ App Store</a>
                         </div>
                     </div>
@@ -598,6 +665,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="project-card reveal">
                 <div class="project-icon icon-blue">🏢</div>
                 <div class="project-eyebrow">Enterprise · 20,000+ Users</div>
@@ -618,6 +686,7 @@
                     <a href="https://apps.apple.com/in/app/eworks-manager/id657687980" target="_blank" class="store-link">⬛ App Store</a>
                 </div>
             </div>
+            
             <div class="project-card reveal">
                 <div class="project-icon icon-orange">☀️</div>
                 <div class="project-eyebrow">Migration Lead · 10,000+ Users</div>
@@ -638,6 +707,7 @@
                     <a href="https://apps.apple.com/in/app/ahasolar-one/id1345910438" target="_blank" class="store-link">⬛ App Store</a>
                 </div>
             </div>
+            
             <div class="project-card featured reveal" style="margin-top: 0;">
                 <div class="featured-inner">
                     <div>
@@ -683,7 +753,9 @@
             </div>
         </div>
     </section>
+
     <div class="section-divider"><hr></div>
+
     <section id="skills" class="section">
         <p class="section-label">Technical Stack</p>
         <h2 class="section-title">Skills &amp; Technologies</h2>
@@ -755,7 +827,9 @@
             </div>
         </div>
     </section>
+
     <div class="section-divider"><hr></div>
+
     <section id="education" class="section" style="padding-bottom: 40px;">
         <p class="section-label">Academic</p>
         <h2 class="section-title">Education</h2>
@@ -778,6 +852,7 @@
             </div>
         </div>
     </section>
+
     <section id="contact">
         <div class="contact-glow"></div>
         <div class="contact-inner">
@@ -791,10 +866,29 @@
             </div>
         </div>
     </section>
+
     <footer>
         <p>© 2025 Suryakant Panda &nbsp;·&nbsp; Hybrid Mobile Developer &nbsp;·&nbsp; Built with ❤️ and a lot of TypeScript</p>
     </footer>
+
     <script>
+        /* Mobile Navigation Logic */
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a nav link
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
         /* Particle Canvas */
         const canvas = document.getElementById('hero-canvas');
         const ctx = canvas.getContext('2d');
@@ -840,6 +934,7 @@
             requestAnimationFrame(drawParticles);
         }
         drawParticles();
+        
         /* Typing Effect */
         const roles = ['Hybrid Mobile Developer', 'React Native Engineer', 'Kotlin / Android Developer', 'iOS (Swift) Developer', 'Cross-Platform Architect'];
         let roleIndex = 0, charIndex = 0, isDeleting = false;
@@ -854,6 +949,7 @@
             setTimeout(type, delay);
         }
         setTimeout(type, 1000);
+        
         /* Scroll Reveal */
         const reveals = document.querySelectorAll('.reveal');
         const observer = new IntersectionObserver((entries) => {
@@ -862,10 +958,12 @@
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
         reveals.forEach(el => observer.observe(el));
+        
         /* Nav scroll */
         window.addEventListener('scroll', () => {
             document.getElementById('navbar').style.borderBottomColor = window.scrollY > 60 ? 'rgba(56,100,180,0.4)' : 'rgba(56,100,180,0.25)';
         });
+        
         /* Count-up stats */
         function animateCount(el, target, suffix, duration) {
             const startTime = performance.now();
