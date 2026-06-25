@@ -26,11 +26,13 @@
             --glow: rgba(56, 189, 248, 0.15);
         }
         
+        /* STRICT VIEWPORT CONTAINMENT */
         html, body { 
             scroll-behavior: smooth; 
             width: 100%;
-            max-width: 100vw; /* Strictly contain to viewport width */
-            overflow-x: hidden; /* Prevent horizontal scrolling globally */
+            max-width: 100vw; 
+            overflow-x: hidden !important; /* Forces mobile browsers to hide overflow */
+            position: relative;
         }
         
         body {
@@ -38,7 +40,6 @@
             background-color: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            position: relative;
         }
         
         ::-webkit-scrollbar { width: 6px; }
@@ -55,8 +56,9 @@
         
         nav {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; /* Anchor explicitly to 100% width instead of right: 0 */
+            top: 0; 
+            left: 0; 
+            right: 0; /* Anchors explicitly to the edges, replacing width: 100% */
             z-index: 100;
             display: flex;
             align-items: center;
@@ -66,10 +68,12 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
             transition: all 0.3s ease;
+            box-sizing: border-box;
         }
         
         .nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; color: var(--text-primary); }
         .nav-logo span { color: var(--accent); }
+        
         .nav-links { display: flex; gap: 32px; list-style: none; }
         .nav-links a {
             color: var(--text-secondary);
@@ -92,7 +96,12 @@
         .nav-links a:hover { color: var(--accent); }
         .nav-links a:hover::after { width: 100%; }
         
-        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-right { 
+            display: flex; 
+            align-items: center; 
+            gap: 20px; 
+            flex-shrink: 0; /* Prevents container from collapsing */
+        }
         
         .nav-cta {
             padding: 8px 20px;
@@ -132,6 +141,7 @@
             position: relative;
             z-index: 1;
             min-height: 100vh;
+            width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -171,7 +181,7 @@
         }
         
         .hero-name {
-            font-size: clamp(38px, 9vw, 88px); /* Lowered minimum to prevent word overflow on narrow screens */
+            font-size: clamp(38px, 9vw, 88px);
             font-weight: 900;
             letter-spacing: -2px;
             line-height: 1;
@@ -453,7 +463,7 @@
             z-index: 1; 
             padding: 80px 24px 120px; 
             text-align: center; 
-            overflow: hidden; /* CRITICAL: Prevents contact-glow from expanding the page width */
+            overflow: hidden; 
         }
         .contact-glow { position: absolute; width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(56, 189, 248, 0.08) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
         .contact-inner { position: relative; max-width: 680px; margin: 0 auto; }
@@ -482,7 +492,7 @@
         @media (max-width: 900px) {
             nav { padding: 12px 16px; }
             .nav-right { gap: 12px; }
-            .nav-cta { padding: 8px 12px; font-size: 12px; } /* Slimmed down for narrow screens */
+            .nav-cta { padding: 8px 12px; font-size: 12px; }
             
             .mobile-menu-btn { display: flex; }
             .nav-links {
@@ -545,7 +555,7 @@
         </ul>
         
         <div class="nav-right">
-            <a href="mailto:suryakant.panda10@gmail.com" class="nav-cta desktop-cta">Hire Me →</a>
+            <a href="mailto:suryakant.panda10@gmail.com" class="nav-cta desktop-cta">Hire Me</a>
             <div class="mobile-menu-btn" id="mobile-menu-btn">
                 <span></span>
                 <span></span>
@@ -946,7 +956,6 @@
         let W, H;
         
         function resize() { 
-            // FIXED: Using clientWidth prevents horizontal scrollbars from skewing the canvas size
             W = canvas.width = document.documentElement.clientWidth; 
             H = canvas.height = document.documentElement.clientHeight; 
         }
